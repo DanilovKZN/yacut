@@ -10,10 +10,10 @@ from .random_generator import get_unique_short_id
 def index_view():
     form = UrlForm()
     if form.validate_on_submit():
-        short_id= form.custom_id.data
+        short_id=form.custom_id.data
         if not short_id:
             short_id = get_unique_short_id()
-        
+
         if URL_map.query.filter_by(short=short_id).first() is not None:
             flash(f'Имя {short_id} уже занято!', 'danger')
             return render_template('index.html', form=form)
