@@ -99,7 +99,7 @@ flask run
 ```
 
 
-12. Технологии
+Технологии
 ```
 Python
 Flask
@@ -107,6 +107,6 @@ Flask-SQLAlchemy
 Flask-WTF
 Flask-Migrate
 ```
-13. Автор
+Автор
 ```
 Данилов Николай
