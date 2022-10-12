@@ -10,7 +10,7 @@ from .random_generator import get_unique_short_id
 def index_view():
     form = UrlForm()
     if form.validate_on_submit():
-        short_id=form.custom_id.data
+        short_id = form.custom_id.data
         if not short_id:
             short_id = get_unique_short_id()
 
