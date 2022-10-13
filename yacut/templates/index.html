@@ -31,11 +31,11 @@
                     {% endfor %}
                   {% endif %}
                   {% with messages = get_flashed_messages(category_filter=["danger"]) %}
-                  {% if messages %}
-                    {% for message in messages %}
-                      {{ message}}
-                    {% endfor %}
-                  {% endif %}
+                    {% if messages %}
+                      {% for message in messages %}
+                        {{ message}}
+                      {% endfor %}
+                    {% endif %}
                   {% endwith %}
                 </div>
                 <br>
@@ -56,12 +56,12 @@
           <div class="col-sm">
             <p class="text-center">
               {% with messages = get_flashed_messages(category_filter=["result"]) %}
-              {% if messages %}
-                <h5 class="text-center">
-                  Ваша новая ссылка готова: </br>
-                  <a href="{{ messages[0] }}">{{ messages[0] }}</a>
-                </h5>
-              {% endif %}
+                {% if messages %}
+                  <h5 class="text-center">
+                    Ваша новая ссылка готова: </br>
+                    <a href="{{ messages[0] }}">{{ messages[0] }}</a>
+                  </h5>
+                {% endif %}
               {% endwith %}
             </p>
           </div>

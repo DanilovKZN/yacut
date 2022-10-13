@@ -1,3 +1,4 @@
+from http import HTTPStatus
 from re import match
 
 from flask import jsonify, request
@@ -41,12 +42,12 @@ def add_url():
     new_url.from_dict(data)
     db.session.add(new_url)
     db.session.commit()
-    return jsonify(new_url.to_dict()), 201
+    return jsonify(new_url.to_dict()), HTTPStatus.CREATED
 
 
 @app.route('/api/id/<string:short_id>/', methods=['GET'])
 def get_original_url(short_id):
     url_in_bd = URL_map.query.filter_by(short=short_id).first()
     if not url_in_bd:
-        raise InvalidAPIUsage(URL_NOT_FOUNDED, 404)
-    return jsonify({'url': url_in_bd.original}), 200
+        raise InvalidAPIUsage(URL_NOT_FOUNDED, HTTPStatus.NOT_FOUND)
+    return jsonify({'url': url_in_bd.original}), HTTPStatus.OK

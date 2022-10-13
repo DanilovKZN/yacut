@@ -9,8 +9,12 @@ from .random_generator import get_unique_short_id
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = UrlForm()
+    # if not form.validate_on_submit() падает с ошибкой
+    # "TypeError: The view function for 'index_view' did not return a valid response.
+    # The function either returned None or ended without a return statement."
     if form.validate_on_submit():
         short_id = form.custom_id.data
+
         if not short_id:
             short_id = get_unique_short_id()
 

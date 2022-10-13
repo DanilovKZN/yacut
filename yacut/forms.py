@@ -3,6 +3,9 @@ from wtforms import SubmitField, URLField
 from wtforms.validators import URL, DataRequired, Length, Optional, Regexp
 
 
+CUSTOM_ID_REGEX = r'^[A-Za-z0-9]+$'
+
+
 class UrlForm(FlaskForm):
     original_link = URLField(
         'Ваша неэстетичная ссылка',
@@ -17,7 +20,7 @@ class UrlForm(FlaskForm):
         validators=[
             Length(1, 16),
             Optional(),
-            Regexp(r'^[A-Za-z0-9]+$')
+            Regexp(CUSTOM_ID_REGEX)
         ]
     )
     submit = SubmitField('Создать')
