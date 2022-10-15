@@ -9,31 +9,29 @@ from .random_generator import get_unique_short_id
 @app.route('/', methods=['GET', 'POST'])
 def index_view():
     form = UrlForm()
-    # if not form.validate_on_submit() падает с ошибкой
-    # "TypeError: The view function for 'index_view' did not return a valid response.
-    # The function either returned None or ended without a return statement."
-    if form.validate_on_submit():
-        short_id = form.custom_id.data
+    if not form.validate_on_submit():
+        return render_template('index.html', form=form)
+    short_id = form.custom_id.data
 
-        if not short_id:
-            short_id = get_unique_short_id()
+    if not short_id:
+        short_id = get_unique_short_id()
 
-        if URL_map.query.filter_by(short=short_id).first() is not None:
-            flash(f'Имя {short_id} уже занято!', 'danger')
-            return render_template('index.html', form=form)
+    if URL_map.query.filter_by(short=short_id).first() is not None:
+        flash(f'Имя {short_id} уже занято!', 'danger')
+        return render_template('index.html', form=form)
 
-        Url_obj = URL_map(
-            original=form.original_link.data,
-            short=short_id,
-        )
-        db.session.add(Url_obj)
-        db.session.commit()
-        flash(url_for(
-            'jump_short_link',
-            short_link=short_id,
-            _external=True),
-            'result'
-        )
+    Url_obj = URL_map(
+        original=form.original_link.data,
+        short=short_id,
+    )
+    db.session.add(Url_obj)
+    db.session.commit()
+    flash(url_for(
+        'jump_short_link',
+        short_link=short_id,
+        _external=True),
+        'result'
+    )
     return render_template('index.html', form=form)
 
 
